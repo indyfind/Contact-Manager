@@ -1,0 +1,95 @@
+@model ContactManager.Models.CompanyCategoryViewModel
+
+@{
+    ViewData["Title"] = "Companies";
+}
+
+<h2>Companies</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Companies" asp-action="Index" method="get">
+    <p>
+        <select asp-for="companyCategory" asp-items="Model.categories">
+            <option value="">All</option>
+        </select>
+
+        Phone: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="Name">@Html.DisplayNameFor(model => model.companies[0].Name)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="Address1">@Html.DisplayNameFor(model => model.companies[0].Address1)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="Address2">@Html.DisplayNameFor(model => model.companies[0].Address2)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="City">@Html.DisplayNameFor(model => model.companies[0].City)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="State">@Html.DisplayNameFor(model => model.companies[0].State)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="Zip">@Html.DisplayNameFor(model => model.companies[0].Zip)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="Phone">@Html.DisplayNameFor(model => model.companies[0].Phone)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="Fax">@Html.DisplayNameFor(model => model.companies[0].Fax)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="Category">@Html.DisplayNameFor(model => model.companies[0].Category)</a>
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.companies) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zip)
+            </td>
+            <td>
+                @String.Format("{0: (###) ###-####}", Convert.ToInt64(item.Phone))
+            </td>
+            <td>
+                @String.Format("{0: (###) ###-####}", Convert.ToInt64(item.Fax))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
